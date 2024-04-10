@@ -32,14 +32,14 @@ void uart_task(void *p) {
 
     while (1) {
         if(xQueueReceive(xQueueAdc, &adc, portMAX_DELAY)){
-            int value = adc.val/100;
+            int value = adc.val/50;
             int MSB = value >> 8;
             int LSB = value & 0xFF;
 
             uart_putc_raw(uart0, adc.axis);
-            uart_putc_raw(uart0, MSB);
             uart_putc_raw(uart0, LSB);
-            uart_putc_raw(uart0, -1);
+            uart_putc_raw(uart0, MSB);
+            //uart_putc_raw(uart0, -1);
         }
 
     }
